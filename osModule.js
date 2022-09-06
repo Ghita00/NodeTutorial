@@ -1,4 +1,5 @@
-//os modules
+//os modules, interact with operation system
+
 const os = require("os")
 
 //info about current user

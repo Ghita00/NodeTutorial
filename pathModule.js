@@ -1,3 +1,5 @@
+//path module, interact with the path
+
 const path = require('path');
 //print the path 
 console.log(path.sep)

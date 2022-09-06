@@ -39,8 +39,8 @@ console.log(datas.singlePerson)
 /*DIFFERENT TYPES OF MODULES
 1. os 
 2. path
-3.
-4. 
+3. fs
+4. http
 */
 
 
