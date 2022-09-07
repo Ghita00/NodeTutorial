@@ -28,7 +28,7 @@ readFile("./folder/first.txt", "utf8", (err, data) => {
     }
 })
 
-//EFFICENTY WITH THEN AND CATCH
+//EFFICENTY WITH THEN AND CATCH + wrapping function
 const getText = (path) => {
     //setup, the params(resolve, reject) are 2 function 
     return new Promise((resolve, reject)=>{
@@ -42,7 +42,7 @@ const getText = (path) => {
     })
 }
 
-//with this method js wait the code's execution
+//with this method js wait the code's execution + wrapping function
 getText("./folder/first.txt")
     .then((result) => {console.log(result)}) //.then was used to resolve the promise
     .catch((error) => {console.log(error)}) //.catch was used to take the error
@@ -60,3 +60,25 @@ const start = async () =>{
     }
 }
 start()
+
+//EFFICENTY WITH THEN AND CATCH no wrapping function
+const util = require("util")
+//use this module and at the method promisify pass the function 
+//we must taked at the function all param aren't a promise
+const readFilePromise = util.promisify(readFile) 
+
+const start2 = async () =>{
+    //in this block the function try to make everything but when find an error enter in row 58
+    try{
+        //await the responce function
+        //readFile("./folder/first.txt", "utf8", (err, data) => {})
+        const first = await readFilePromise("./folder/first.txt", "utf8")
+        const second = await readFilePromise("./folder/second.txt", "utf8")
+        console.log(first, second) //these here 2 promise resolved 
+    }catch(error){
+        console.log(error)
+    }
+}
+start2()
+
+
