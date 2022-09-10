@@ -1,4 +1,3 @@
-const { application } = require("express")
 const express = require("express")
 const app = express()
 //include data json by another file
@@ -46,6 +45,27 @@ app.get("/api/people/:PersonID", (req, res) => {
         res.status(404).send("error page :(")
     }
     res.json(singlePerson)
+})
+
+app.get("/api/v1/query", (req, res) =>{
+    //domain.url?query --> after ? is a query, that is a dictionary
+    //with & we can combine different query
+    console.log(req.query)
+    const {search, all} = req.query
+    let sortedPeolple = [...people]
+   
+    if(search){
+        let result
+        for(let i = 0; i < sortedPeolple.length; i++){
+            if(sortedPeolple[i].id == search)
+                result = sortedPeolple[i]
+        }
+        res.status(200).send(result)
+    }
+    if(all){
+        res.json(sortedPeolple)
+    }
+    
 })
 
 app.listen(5000, ()=>{
